@@ -62,7 +62,7 @@ def prediction() :
 
 
 if __name__ == "__main__":
-    http_server = WSGIServer(app)
-    http_server.serve_forever()
-    #app.run()
+    # http_server = WSGIServer(app)
+    # http_server.serve_forever()
+    app.run()
     
