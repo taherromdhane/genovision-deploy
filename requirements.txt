@@ -10,8 +10,8 @@ Keras==2.3.1
 Keras-Applications==1.0.8
 Keras-Preprocessing==1.1.0
 MarkupSafe==1.1.1
-numpy==1.18.3
-opencv-python==4.2.0.34
+numpy
+opencv-python
 pycparser==2.20
 PyYAML==5.3.1
 scipy==1.4.1
