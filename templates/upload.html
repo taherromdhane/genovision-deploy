@@ -1,0 +1,146 @@
+{% extends "base.html" %} 
+
+{% block header%}
+    <link href="../static/css/upload.css" rel="stylesheet" />
+{% endblock %}
+
+{% block content %}
+<div class="page-header" data-parallax="true" style="background-image: url('../static/img/header-image.jpg');">
+    <div class="filter"></div>
+    <div class="container">
+        <div class="motto text-center">
+            <h1 id="project-title">Histopathologic Cancer Detection</h1>
+            <h3> Scan limpho tissues in 3 simple steps!</h3>
+            <br />
+            <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" class="btn btn-outline-neutral btn-round" target="_blank">
+                <i class="fa fa-play"></i>Watch demo</a>
+            <a href="#Upload">
+                <button type="button" class="btn btn-neutral btn-round">Upload Now!</button>
+            </a>
+        </div>
+    </div>        
+</div>
+
+<div class="main">
+    <div class="section text-center" id="steps-section">
+        <div class="cotnainer">
+            <div class="row">
+                <div class="col-md-8 ml-auto mr-auto">
+                    <h2 class="title">3 simple steps !</h2>
+                </div>
+            </div>
+            <br/>
+            <div class="row">          
+                <div class="col-md-4">
+                    <div class="info">
+                        <div class="icon icon-primary">
+                        <i class="nc-icon nc-bulb-63"></i>
+                        </div>
+                        <hr>
+                        <div class="description">
+                            <h4 class="info-title">1. Upload Scan</h4>
+                            <p></p>
+                            <!-- <a href="javascript:;" class="btn btn-link btn-primary">See more</a> -->
+                        </div>
+                    </div>
+                    </div>
+                <div class="col-md-4">
+                    <div class="info">
+                        <div class="icon icon-primary">
+                            <i class="nc-icon nc-chart-bar-32"></i>
+                        </div>
+                        <hr>
+                        <div class="description">
+                            <h4 class="info-title">2. Let the Model do the work</h4>
+                            <p></p>
+                            <!-- <a href="javascript:;" class="btn btn-link btn-primary">See more</a> -->
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="info">
+                        <div class="icon icon-primary">
+                            <i class="nc-icon nc-sun-fog-29"></i>
+                        </div>
+                        <hr>
+                        <div class="description">
+                            <h4 class="info-title">3. Obtain Results!</h4>
+                            <p></p>
+                            <!-- <a href="javascript:;" class="btn btn-link btn-primary">See more</a> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section text-center" id="Upload">
+        <div class="container">    
+            <div class="row">
+                <div class="col-md-8 ml-auto mr-auto">
+                    <h2>Upload your scan here</h2>
+                    <br/>
+                    <form id="upload-file" method="post" enctype="multipart/form-data">
+                        <label for="imageUpload" class="upload-label btn btn-primary btn-round">
+                            Choose File
+                        </label>
+                        <input type="file" name="image" id="imageUpload" accept=".png, .jpg, .jpeg">
+                    </form>
+                </div>
+            </div>
+            <br/>
+
+            <div class="row">
+                <div class="col-md-10 ml-auto mr-auto image-section" style="display:none;">
+                    <div class="img-preview">
+                        <!-- <div id="imagePreview"></div> -->
+                        <img class="img-fluid" id="imagePreview" src="">
+                    </div>
+                    <br/>
+                    <div>
+                        <button type="button" class="btn btn-primary btn-lg btn-round" id="btn-predict">Predict!</button>
+                        <div class="loader" style="display:none;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section text-center" id="result" style="display:none;">
+        <div class="container">    
+            <div class="row">
+                <div class="col-md-8 ml-auto mr-auto">
+                    <h2>Prediction results :</h2>
+                    <br/>
+                </div>
+                <div class="col-md-10 ml-auto mr-auto image-section" style="display:none;">
+                    <div class="img-preview">
+                        <img class="img-fluid" id="imageLabeled" src="">
+                    </div>
+                    <br/>
+                    <div>
+                        <a target="_blank" id="btn-download-l">
+                            <button type="button" class="btn btn-primary btn-lg btn-round"> Download </button>
+                        </a>
+                    </div>
+                    <br/>
+                    <div class="img-preview">
+                        <img class="img-fluid" id="imageFilled" src="">
+                    </div>
+                    </br>
+                    <div>
+                        <a target="_blank" id="btn-download-f">
+                            <button type="button" class="btn btn-primary btn-lg btn-round" > Download </button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script type="text/javascript" src="../static/js/upload.js"></script>
+{% endblock %}
+
