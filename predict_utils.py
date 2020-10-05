@@ -2,6 +2,8 @@ import numpy as np
 import cv2
 import queue 
 from keras.applications.nasnet import preprocess_input
+from tensorflow.python.keras.backend import set_session
+import sys
 
 def get_windows(padded_image, windows_x, windows_y, w_size, height, width) :
 
@@ -20,7 +22,7 @@ def get_windows(padded_image, windows_x, windows_y, w_size, height, width) :
 
     return X        
 
-def get_predictions(model, image, windows_x, windows_y, w_size, height, width) :
+def get_predictions(model, image, windows_x, windows_y, w_size, height, width, session, graph) :
     
     # This function performs the prediction on the list of images and returns the prediction matrix
     # which is a matrix where each element corresponds to the prediction of a window of the padded image
@@ -29,20 +31,23 @@ def get_predictions(model, image, windows_x, windows_y, w_size, height, width) :
     # sliding window method
     padded_image = np.pad(image, pad_width=((w_size, w_size), (w_size, w_size), (0, 0)), mode='symmetric')
 
-    # Creating array of windows of the image
+    # Creating array of windows of the image    
     X = get_windows(padded_image, windows_x, windows_y, w_size, height, width)
 
     # Performing the predictions
-    Y = ((model.predict(X).ravel()*model.predict(X[:, ::-1, :, :]).ravel()*model.predict(X[:, ::-1, ::-1, :]).ravel()*model.predict(X[:, :, ::-1, :]).ravel())**0.25).tolist()
-    
-    # Putting the predictions in useful matrix form    
-    preds = np.zeros((windows_x, windows_y))
-    for x in range(windows_x):
-        for y in range(windows_y):
-            preds[x, y] = Y[x*windows_y + y]
+    with graph.as_default():
+        set_session(session)
+        Y = ((model.predict(X).ravel()*model.predict(X[:, ::-1, :, :]).ravel()*model.predict(X[:, ::-1, ::-1, :]).ravel()*model.predict(X[:, :, ::-1, :]).ravel())**0.25).tolist()
+        print("ran model", file=sys.stderr)
+
+        # Putting the predictions in useful matrix form    
+        preds = np.zeros((windows_x, windows_y))
+        for x in range(windows_x):
+            for y in range(windows_y):
+                preds[x, y] = Y[x*windows_y + y]
 
 
-    return preds
+        return preds
 
 # This code implements the Connected Components Labelling algorithm using the classic method
 # which is used to get the labeled regions of the image windows for use in the next part

@@ -6,9 +6,11 @@ import numpy as np
 import cv2
 import json
 import base64
-from predict import load_model, predict
+from predict import load_model_tf, predict
+import sys
+import os
 
-model = load_model()
+model, session, graph = load_model_tf()
 
 app = Flask(__name__)
 
@@ -46,7 +48,9 @@ def prediction() :
         filestr = request.files['image'].read()
         image = json2im(filestr)
 
-        labeled_img, filled_img = predict(model, image)
+        labeled_img, filled_img = predict(model, image, session, graph)
+
+        print("got predictions", file=sys.stderr)
 
         labeled_jstr = im2json(labeled_img)
         filled_jstr = im2json(filled_img)
@@ -62,7 +66,9 @@ def prediction() :
 
 
 if __name__ == "__main__":
-    # http_server = WSGIServer(('0.0.0.0', 5000), app)
-    # http_server.serve_forever()
-    app.run()
+    #app.run(host='0.0.0.0', port=5000, debug=True)
+    
+    http_server = WSGIServer(('0.0.0.0', int(os.environ.get("PORT", 5000))), app)
+    print(int(os.environ.get("PORT", 5000)), file=sys.stderr)
+    http_server.serve_forever()
     
