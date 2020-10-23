@@ -1,2 +1,3 @@
-# genovision-deploy
-This repo is for deploiement of GenoVision app
+# Genovision-Deploy
+This repo is for deploiement of GenoVision app, which is a volunteering project by Taher Romdhane and Achraf Haddar, members of the Data Co-Lab Engineering departement. Through this effort, we aim to help promote AI in HealthCare by helping doctors optimize their decision making when it comes to sensitive cases. You can find the repo for the implementation, training of the model and also tests and sample detections in the following repository : https://github.com/taherromdhane/histopathologic-cancer-detection .
+Data Co-Lab is the first Data Science lab for Students and Educators, aiming to empower AI culture in Tunisia. If you want to know more about, you can check our website here : http://www.data-co-lab.com/.
